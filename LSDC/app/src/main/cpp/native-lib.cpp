@@ -5,24 +5,33 @@
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 
-#include "shader/Shader.h"
-Shader* mUiShader;
+#define STB_IMAGE_IMPLEMENTATION
+
+#include "Context.h"
+Context* mContext;
+
+#include "ui/Image.h"
+Image* mBgLoadImg;
 
 extern "C" {
     JNIEXPORT void JNICALL
     Java_com_example_lsdc_LSDCLib_init(JNIEnv *env, jclass clazz, jobject asset_manager,
                                             jint width, jint height) {
+        glEnable(GL_DEPTH_TEST);
         glViewport(0, 0, width, height);
 
         AAssetManager* assetManager = AAssetManager_fromJava(env, asset_manager);
 
+        mContext = new Context(assetManager, width, height);
 
-        mUiShader = new Shader(assetManager, "shader/ui/uiVS.txt", "shader/ui/uiFS.txt");
+        mBgLoadImg = new Image(mContext, (float)mContext->getWidth(), (float)mContext->getHeight(), mContext->getBgLoadTexture());
     }
 
     JNIEXPORT void JNICALL
     Java_com_example_lsdc_LSDCLib_update(JNIEnv *env, jclass clazz) {
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-        glClear (GL_COLOR_BUFFER_BIT);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear (GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
+        mBgLoadImg->render();
     }
 }
