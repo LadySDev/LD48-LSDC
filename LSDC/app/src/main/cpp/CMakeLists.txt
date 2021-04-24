@@ -27,7 +27,8 @@ add_library( # Sets the name of the library.
         render/Shader.cpp
         render/Texture.cpp
         render/ui/Image.cpp
-        render/LoadView.cpp
+        render/view/LoadView.cpp
+        render/view/MainView.cpp
         Manager.cpp
         )
 

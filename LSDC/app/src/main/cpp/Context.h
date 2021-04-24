@@ -17,6 +17,7 @@ public:
 
     Shader* getUIShader();
     GLuint getBgLoadTexture();
+    GLuint getBgMainTexture();
 private:
     int mWidth;
     int mHeight;
@@ -24,7 +25,6 @@ private:
     Shader* mUiShader;
 
     GLuint* mTextures;
-    Texture* mBgLoad;
 };
 
 
