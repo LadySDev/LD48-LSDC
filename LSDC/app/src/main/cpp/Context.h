@@ -18,6 +18,7 @@ public:
     Shader* getUIShader();
     GLuint getBgLoadTexture();
     GLuint getBgMainTexture();
+    GLuint getFontTexture();
 private:
     int mWidth;
     int mHeight;

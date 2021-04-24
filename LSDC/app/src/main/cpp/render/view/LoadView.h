@@ -1,19 +1,14 @@
 #ifndef LSDC_LOADVIEW_H
 #define LSDC_LOADVIEW_H
 
-#include <android/log.h>
-#define LOG_TAG "libNative"
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-
 #include "IView.h"
 #include <chrono>
 
 class LoadView : public IView {
 public:
-    LoadView(Context* context, Manager* manager);
+    LoadView(Context* context, Manager* manager, nlohmann::json data);
 
-    virtual void update();
+    virtual void update(nlohmann::json data);
     virtual void render();
 private:
     Image* mBgLoadImg;

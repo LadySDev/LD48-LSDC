@@ -7,6 +7,9 @@ class Context;
 #include "render/view/LoadView.h"
 #include "render/view/MainView.h"
 
+#include "utils/json.hpp"
+#include <chrono>
+
 class Manager {
 public:
     Manager(Context* context);
@@ -19,6 +22,12 @@ private:
     IView* mCurrentView;
 
     void init();
+
+    nlohmann::json mData;
+
+    bool mIsTimerRunning;
+    std::chrono::time_point<std::chrono::system_clock> mTimerOld;
+    std::chrono::time_point<std::chrono::system_clock> mTimerNew;
 };
 
 
