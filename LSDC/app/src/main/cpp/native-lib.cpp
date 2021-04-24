@@ -10,8 +10,8 @@
 #include "Context.h"
 Context* mContext;
 
-#include "render/ui/Image.h"
-Image* mBgLoadImg;
+#include "Manager.h"
+Manager* mManager;
 
 extern "C" {
     JNIEXPORT void JNICALL
@@ -23,8 +23,7 @@ extern "C" {
         AAssetManager* assetManager = AAssetManager_fromJava(env, asset_manager);
 
         mContext = new Context(assetManager, width, height);
-
-        mBgLoadImg = new Image(mContext, (float)mContext->getWidth(), (float)mContext->getHeight(), mContext->getBgLoadTexture());
+        mManager = new Manager(mContext);
     }
 
     JNIEXPORT void JNICALL
@@ -32,6 +31,6 @@ extern "C" {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear (GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-        mBgLoadImg->render();
+        mManager->render();
     }
 }
