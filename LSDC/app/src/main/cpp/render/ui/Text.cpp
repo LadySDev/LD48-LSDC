@@ -282,3 +282,25 @@ void Text::setText(std::string text) {
         addLetter(c);
     }
 }
+
+void Text::setPosition(float x, float y) {
+    mPosX = ((2 * x) / (float)mContext->getWidth()) - 1;
+    mPosY = -(((2 * y) / (float)mContext->getHeight()) - 1);
+
+    float startPosX = mPosX;
+    float startPosY = mPosY;
+
+    for(int i =0;i<mImages.size();i++){
+        float offsetX = 0.0f;
+        if(i > 0){
+            offsetX = ((2.0f * (float)mCharacterSpacing) / (float)mContext->getWidth());
+        }
+
+        startPosX = startPosX + offsetX;
+        mImages[i].setPosition(startPosX, startPosY);
+    }
+}
+
+float Text::getWidthBounds() {
+    return ((float)mImages.size() * (float)mCharacterSize) + ((float)(mImages.size() - 1) * (float)mCharacterSpacing);
+}

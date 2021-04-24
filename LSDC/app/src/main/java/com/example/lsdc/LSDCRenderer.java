@@ -28,4 +28,8 @@ public class LSDCRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         LSDCLib.update();
     }
+
+    public void onTouchPress(float x, float y){
+        LSDCLib.onClick(x, y);
+    }
 }

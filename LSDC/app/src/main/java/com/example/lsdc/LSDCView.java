@@ -12,5 +12,7 @@ public class LSDCView  extends GLSurfaceView {
 
         LSDCRenderer renderer = new LSDCRenderer(getResources().getAssets());
         setRenderer(renderer);
+
+        this.setOnTouchListener(new LSDCOnTouchListener(this, renderer));
     }
 }

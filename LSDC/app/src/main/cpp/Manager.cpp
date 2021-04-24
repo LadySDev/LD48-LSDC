@@ -28,6 +28,14 @@ void Manager::render() {
 
         if(dynamic_cast<MainView*>(mCurrentView) != nullptr){
             mData["time"] = (double)mData["time"] + elapsed;
+
+            for(int i=mData["particles"].size() - 1;i>-1;i--){
+                mData["particles"][i]["life"] = (double)mData["particles"][i]["life"] - (double)elapsed;
+
+                if(mData["particles"][i]["life"] <= 0){
+                    mData["particles"].erase(i);
+                }
+            }
         }
 
         mCurrentView->update(mData);
@@ -40,5 +48,26 @@ void Manager::render() {
 void Manager::launchMain() {
     mData = {};
     mData["time"] = 0;
+    mData["level"] = 1;
+    mData["particles"] = {};
+
+    mParticles = 0;
+
     mCurrentView = new MainView(mContext, this, mData);
+}
+
+void Manager::onClick(float x, float y) {
+    if(dynamic_cast<MainView*>(mCurrentView) != nullptr){
+
+        nlohmann::json particle;
+        particle["id"] = mParticles;
+        particle["value"] = 10;
+        particle["x"] = x;
+        particle["y"] = y;
+        particle["life"] = 10.0;
+
+        mData["particles"].push_back(particle);
+
+        mParticles = mParticles + 1;
+    }
 }

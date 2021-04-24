@@ -33,4 +33,9 @@ extern "C" {
 
         mManager->render();
     }
+
+    JNIEXPORT void JNICALL
+    Java_com_example_lsdc_LSDCLib_onClick(JNIEnv *env, jclass clazz, jfloat x, jfloat y) {
+        mManager->onClick(x, y);
+    }
 }

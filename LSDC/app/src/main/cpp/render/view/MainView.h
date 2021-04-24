@@ -17,6 +17,9 @@ public:
 private:
     Image* mBgImg;
     Text* mTimerText;
+    Text* mTitleLevelText;
+
+    std::vector<std::pair<int, Text*>> mParticleTexts;
 };
 
 
