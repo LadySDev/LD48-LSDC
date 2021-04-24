@@ -10,7 +10,7 @@
 #include "Context.h"
 Context* mContext;
 
-#include "ui/Image.h"
+#include "render/ui/Image.h"
 Image* mBgLoadImg;
 
 extern "C" {

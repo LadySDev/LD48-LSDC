@@ -1,7 +1,7 @@
 #ifndef LSDC_TEXTURE_H
 #define LSDC_TEXTURE_H
 
-#include "utils/stb_image.h"
+#include "../utils/stb_image.h"
 
 #include <GLES3/gl3.h>
 #include <android/asset_manager.h>

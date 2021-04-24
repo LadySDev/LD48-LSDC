@@ -1,7 +1,7 @@
 #ifndef LSDC_IMAGE_H
 #define LSDC_IMAGE_H
 
-#include "../Context.h"
+#include "../../Context.h"
 
 class Image {
 public:

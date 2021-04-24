@@ -4,7 +4,7 @@ Context::Context(AAssetManager *assetManager, int width, int height) {
     mWidth = width;
     mHeight = height;
 
-    mUiShader = new Shader(assetManager, "shader/ui/uiVS.txt", "shader/ui/uiFS.txt");
+    mUiShader = new Shader(assetManager, "render/shader/ui/uiVS.txt", "render/shader/ui/uiFS.txt");
 
     int nbTexture = 1;
     mTextures = new GLuint[nbTexture] ();

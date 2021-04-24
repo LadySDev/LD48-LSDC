@@ -24,9 +24,9 @@ add_library( # Sets the name of the library.
 
              native-lib.cpp
         Context.cpp
-        shader/Shader.cpp
-        Texture.cpp
-        ui/Image.cpp)
+        render/Shader.cpp
+        render/Texture.cpp
+        render/ui/Image.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by

@@ -4,9 +4,9 @@
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 
-#include "shader/Shader.h"
+#include "render/Shader.h"
 
-#include "Texture.h"
+#include "render/Texture.h"
 
 class Context {
 public:
