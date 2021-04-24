@@ -1,10 +1,17 @@
 #include <jni.h>
-#include <string>
 
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_example_lsdc_MainActivity_stringFromJNI(
-        JNIEnv* env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
+#include <GLES3/gl3.h>
+
+extern "C" {
+    JNIEXPORT void JNICALL
+    Java_com_example_lsdc_LSDCLib_init(JNIEnv *env, jclass clazz, jobject asset_manager,
+                                            jint width, jint height) {
+        glViewport(0, 0, width, height);
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_example_lsdc_LSDCLib_update(JNIEnv *env, jclass clazz) {
+        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClear (GL_COLOR_BUFFER_BIT);
+    }
 }

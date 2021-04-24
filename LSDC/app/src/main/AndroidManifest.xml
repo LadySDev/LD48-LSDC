@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LSDC">
         <activity
-            android:name=".MainActivity"
+            android:name=".LSDCActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
