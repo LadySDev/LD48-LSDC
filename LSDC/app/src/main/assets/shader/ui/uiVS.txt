@@ -1,0 +1,11 @@
+attribute vec2 vertexPosition;
+attribute vec3 vertexColour;
+attribute vec2 vertexTextureCoord;
+varying vec3 fragColour;
+varying vec2 textureCoord;
+void main()
+{
+    gl_Position = vec4(vertexPosition, 0.0, 1.0);
+    fragColour = vertexColour;
+    textureCoord = vertexTextureCoord;
+}
