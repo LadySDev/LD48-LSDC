@@ -8,7 +8,7 @@ class LoadView : public IView {
 public:
     LoadView(Context* context, Manager* manager, nlohmann::json data);
 
-    virtual void update(nlohmann::json data);
+    virtual void update(float elapsed, nlohmann::json data);
     virtual void render();
 private:
     Image* mBgLoadImg;

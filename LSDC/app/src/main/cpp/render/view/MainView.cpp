@@ -37,15 +37,64 @@ MainView::MainView(Context *context, Manager* manager, nlohmann::json data) : IV
     mLevelLifeText->setOffsetY(-mLevelLifeText->getHeightBounds() / 2.0f);
 
     mParticleTexts = std::vector<std::pair<int, Text*>>();
+
+    mMiner = new Sprite(mContext, 800.0, 800.0, mContext->getMinerTexture());
+    mMiner->setPosition((float)mContext->getWidth() / 2.0f, mBgLifeBarImg->getPosY() + mBgLifeBarImg->getHeight() + 50.0f);
+    mMiner->setOffset(-mMiner->getWidth() / 2.0f, 0.0f);
+    mMiner->setTextureCoord(new float []{
+            4 * 72.f / 360.f, 0 * 72.f / 936.f,
+            (4 + 1) * 72.f / 360.f, 0 * 72.f / 936.f,
+            (4 + 1) * 72.f / 360.f, (0 + 1) * 72.f / 936.f,
+            4 * 72.f / 360.f, (0 + 1) * 72.f / 936.f
+    });
+
+    Animation* mMinerDigging = new Animation("minerDigging", 360.f, 936.f,72.f, 72.f, 0.15, true);
+//    mMinerDigging->addFrame(0, 4);
+//    mMinerDigging->addFrame(1, 4);
+//    mMinerDigging->addFrame(2, 4);
+//    mMinerDigging->addFrame(3, 4);
+    mMinerDigging->addFrame(4, 4);
+    mMinerDigging->addFrame(5, 4);
+    mMinerDigging->addFrame(6, 4);
+    mMinerDigging->addFrame(7, 4);
+    mMinerDigging->addFrame(8, 4);
+    mMinerDigging->addFrame(9, 4);
+
+    LOGI("anim count: %i", mMinerDigging->getFrameCount());
+
+    mMiner->addAnimation(mMinerDigging);
+    mMiner->playAnimation("minerDigging");
+
 }
 
-void MainView::update(nlohmann::json data) {
+void MainView::update(float elapsed, nlohmann::json data) {
 
-
-    double timer = (double)data["time"];
-    int test = (int)std::trunc(timer);
+    double timerD = (double)data["time"];
+    int timerI = (int)std::trunc(timerD);
     //LOGI("timer: %f", timer);
-    mTimerText->setText("DUREE " + std::to_string(test) + "S");
+
+    std::string timerText = "DUREE ";
+    if(timerI >= 3600){
+        int hour = timerI / 3600;
+        int min = (timerI - (hour * 3600)) / 60;
+        int sec = timerI - (min * 60);
+        timerText = timerText + std::to_string(hour) + "H ";
+        timerText = timerText + std::to_string(min) + "M ";
+        timerText = timerText + std::to_string(sec) + "S";
+    }
+    else if(timerI >= 60){
+        int min = timerI / 60;
+        int sec = timerI - (min * 60);
+        timerText = timerText + std::to_string(min) + "M ";
+        timerText = timerText + std::to_string(sec) + "S";
+    }
+    else{
+        timerText = timerText + std::to_string(timerI) + "S";
+    }
+
+    mTimerText->setText(timerText);
+
+    mMiner->update(elapsed);
 
     for(int i=0;i<data["particles"].size();i++){
         int index = data["particles"][i]["id"];
@@ -83,9 +132,6 @@ void MainView::update(nlohmann::json data) {
             mTitleLevelText->setOffsetX(-mTitleLevelText->getWidthBounds() / 2.0f);
 
             float percent = (float)data["levelCurrentLife"] / (float)data["levelMaxLife"];
-            LOGI("percent: %f", percent);
-            LOGI("bg bar life width: %f", mBgLifeBarImg->getWidth());
-            LOGI("multip: %f", mBgLifeBarImg->getWidth() * percent);
             mLifeBarImg->setSize(mBgLifeBarImg->getWidth() * percent, mLifeBarImg->getHeight());
         }
 
@@ -112,6 +158,7 @@ void MainView::render() {
         mParticleTexts[i].second->render();
     }
 
+    mMiner->render();
 
     mTimerText->render();
     mTitleLevelText->render();

@@ -20,6 +20,7 @@ public:
     GLuint getBgMainTexture();
     GLuint getFontTexture();
     GLuint getLifeBarTexture();
+    GLuint getMinerTexture();
 private:
     int mWidth;
     int mHeight;

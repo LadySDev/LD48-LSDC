@@ -38,7 +38,7 @@ void Manager::render() {
             }
         }
 
-        mCurrentView->update(mData);
+        mCurrentView->update(elapsed, mData);
     }
     if(mCurrentView != nullptr){
         mCurrentView->render();

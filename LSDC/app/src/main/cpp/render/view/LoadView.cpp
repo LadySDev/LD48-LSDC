@@ -9,7 +9,7 @@ LoadView::LoadView(Context* context, Manager* manager, nlohmann::json data) : IV
     mTimerOld = std::chrono::system_clock::now();
 }
 
-void LoadView::update(nlohmann::json data) {
+void LoadView::update(float elapsed, nlohmann::json data) {
     if(mIsTimerRunning == true) {
         mTimerNew = std::chrono::system_clock::now();
         double elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(

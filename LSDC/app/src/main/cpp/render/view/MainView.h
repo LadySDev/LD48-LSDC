@@ -12,7 +12,7 @@ class MainView : public IView {
 public:
     MainView(Context* context, Manager* manager, nlohmann::json data);
 
-    virtual void update(nlohmann::json data);
+    virtual void update(float elapsed, nlohmann::json data);
     virtual void render();
 private:
     Image* mBgImg;
@@ -25,6 +25,8 @@ private:
     Image* mLifeBarImg;
 
     std::vector<std::pair<int, Text*>> mParticleTexts;
+
+    Sprite* mMiner;
 };
 
 
