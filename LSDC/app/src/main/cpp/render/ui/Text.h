@@ -13,8 +13,15 @@ public:
     void render();
 
     void setText(std::string text);
+    void setCharacterSize(int size);
+    int getCharacterSize();
+
     void setPosition(float x, float y);
+    float getPosX();
+    float getPosY();
+
     float getWidthBounds();
+    float getHeightBounds();
 private:
     Context* mContext;
     GLuint* mProgram;

@@ -14,7 +14,7 @@ Text::Text(Context *context, float width, float height, GLuint texture, std::str
     mText = text;
 
     mCharacterSize = 100;
-    mCharacterSpacing = 100;
+    mCharacterSpacing = -40;
 
     mImages = std::vector<Image>();
 
@@ -44,7 +44,15 @@ void Text::addLetter(char letter) {
     float startPosX = mPosX;
     float startPosY = mPosY;
     if(mImages.size() > 0){
-        startPosX = startPosX + ((float)mImages.size() * ((float)mCharacterSpacing / (float)mContext->getWidth()));
+        float offsetX = 0.0f;
+
+        float width = ((float)mImages.size() * (float)mCharacterSize) + ((float)mImages.size() * (float)mCharacterSpacing);
+
+        float pos1X = -1.0f;
+        float pos2X = (2 * width / (float)mContext->getWidth()) - 1;
+
+        offsetX = abs(pos1X - pos2X);
+        startPosX = startPosX + offsetX;
     }
 
     switch(letter){
@@ -283,9 +291,24 @@ void Text::setText(std::string text) {
     }
 }
 
+void Text::setCharacterSize(int size) {
+    mCharacterSize = size;
+    mCharacterSpacing = (float)mCharacterSize * (-0.4);
+
+    mImages = std::vector<Image>();
+
+    for(char& c : mText){
+        addLetter(c);
+    }
+}
+
+int Text::getCharacterSize() {
+    return mCharacterSize;
+}
+
 void Text::setPosition(float x, float y) {
-    mPosX = ((2 * x) / (float)mContext->getWidth()) - 1;
-    mPosY = -(((2 * y) / (float)mContext->getHeight()) - 1);
+    mPosX = (2 * x / (float)mContext->getWidth()) - 1;
+    mPosY = 1 - (2 * y / (float)mContext->getHeight());
 
     float startPosX = mPosX;
     float startPosY = mPosY;
@@ -293,7 +316,10 @@ void Text::setPosition(float x, float y) {
     for(int i =0;i<mImages.size();i++){
         float offsetX = 0.0f;
         if(i > 0){
-            offsetX = ((2.0f * (float)mCharacterSpacing) / (float)mContext->getWidth());
+            float pos1X = -1.0f;
+            float pos2X = (2 * ((float)mCharacterSize + (float)mCharacterSpacing)) / (float)mContext->getWidth() - 1;
+
+            offsetX = abs(pos1X - pos2X);
         }
 
         startPosX = startPosX + offsetX;
@@ -303,4 +329,16 @@ void Text::setPosition(float x, float y) {
 
 float Text::getWidthBounds() {
     return ((float)mImages.size() * (float)mCharacterSize) + ((float)(mImages.size() - 1) * (float)mCharacterSpacing);
+}
+
+float Text::getHeightBounds() {
+    return (float)mCharacterSize;
+}
+
+float Text::getPosX() {
+    return (mPosX + 1) * (float)mContext->getWidth() / 2.0f;
+}
+
+float Text::getPosY() {
+    return (-mPosY + 1) * (float)mContext->getHeight() / 2.0f;
 }

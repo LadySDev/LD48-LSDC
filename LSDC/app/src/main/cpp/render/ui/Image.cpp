@@ -1,6 +1,8 @@
 #include "Image.h"
 
 Image::Image(Context *context, float width, float height, GLuint texture) {
+    mContext = context;
+
     mPosX = -1.0f;
     mPosY = 1.0f;
 
@@ -27,8 +29,14 @@ Image::Image(Context *context, float width, float height, GLuint texture) {
             0.0f, 1.0f
     };
 
-    float w = ((2 * width) / (float)context->getWidth()) - 1 - (-1.0f);
-    float h = 1.0f - (-(((2 * height) / (float)context->getHeight()) - 1));
+    float pos1X = mVertices[0];
+    float pos1Y = mVertices[1];
+    float pos2X = (2 * width / (float)mContext->getWidth()) - 1;
+    float pos2Y = 1 - (2 * height / (float)mContext->getHeight());
+    //float w = ((2 * width) / (float)context->getWidth()) - 1 - (-1.0f);
+    float w = abs(pos1X - pos2X);
+    //float h = 1.0f - (-(((2 * height) / (float)context->getHeight()) - 1));
+    float h = abs(pos1Y - pos2Y);
 
     mWidth = w;
     mHeight = h;
@@ -48,8 +56,17 @@ Image::Image(Context *context, float width, float height, GLuint texture) {
 }
 
 void Image::setSize(float width, float height) {
-    mWidth = width;
-    mHeight = height;
+    float pos1X = mVertices[0];
+    float pos1Y = mVertices[1];
+
+    float pos2X = (2 * width / (float)mContext->getWidth()) - 1;
+    float pos2Y = 1 - (2 * height / (float)mContext->getHeight());
+
+    float w = abs(pos1X - pos2X);
+    float h = abs(pos1Y - pos2Y);
+
+    mWidth = w;
+    mHeight = h;
 
     mVertices[2] = mVertices[0] + mWidth;
     mVertices[4] = mVertices[0] + mWidth;

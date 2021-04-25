@@ -64,7 +64,7 @@ void Manager::onClick(float x, float y) {
         particle["value"] = 10;
         particle["x"] = x;
         particle["y"] = y;
-        particle["life"] = 10.0;
+        particle["life"] = 1.0;
 
         mData["particles"].push_back(particle);
 

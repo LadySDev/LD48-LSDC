@@ -5,10 +5,11 @@
 MainView::MainView(Context *context, Manager* manager, nlohmann::json data) : IView(context, manager, data) {
     mBgImg = new Image(mContext, (float)mContext->getWidth(), (float)mContext->getHeight(), mContext->getBgMainTexture());
 
-    mTimerText = new Text(mContext, 250.0f, 250.0f, mContext->getFontTexture(), "ABCD");
+    mTimerText = new Text(mContext, 250.0f, 250.0f, mContext->getFontTexture(), "DUREE 0S");
+    mTimerText->setPosition(0.0f, (float)mContext->getHeight() - mTimerText->getHeightBounds());
 
     mTitleLevelText = new Text(mContext, 250.0f, 250.0f, mContext->getFontTexture(), "LEVEL");
-    mTitleLevelText->setPosition((float)mContext->getWidth() / 2.0f, 0.0f);
+    mTitleLevelText->setPosition((float)mContext->getWidth() / 2.0f- (mTitleLevelText->getWidthBounds() / 2.0f), 0.0f);
 
     mParticleTexts = std::vector<std::pair<int, Text*>>();
 }
@@ -19,7 +20,7 @@ void MainView::update(nlohmann::json data) {
     double timer = (double)data["time"];
     int test = (int)std::trunc(timer);
     //LOGI("timer: %f", timer);
-    mTimerText->setText(std::to_string(test));
+    mTimerText->setText("DUREE " + std::to_string(test) + "S");
 
     for(int i=0;i<data["particles"].size();i++){
         int index = data["particles"][i]["id"];
@@ -28,6 +29,10 @@ void MainView::update(nlohmann::json data) {
         for(int j=0;j<mParticleTexts.size();j++){
 
             if(mParticleTexts[j].first == index){
+
+                mParticleTexts[j].second->setPosition(mParticleTexts[j].second->getPosX(), mParticleTexts[j].second->getPosY() - 1);
+                mParticleTexts[j].second->setCharacterSize(mParticleTexts[j].second->getCharacterSize() - 1);
+
                 found = true;
                 break;
             }

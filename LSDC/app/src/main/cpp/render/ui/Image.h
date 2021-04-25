@@ -15,6 +15,8 @@ public:
 
     void render();
 private:
+    Context* mContext;
+
     float* mVertices;
     float* mColours;
     short* mIndices;
