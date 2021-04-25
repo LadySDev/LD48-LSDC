@@ -19,6 +19,11 @@ private:
     Text* mTimerText;
     Text* mTitleLevelText;
 
+
+    Text* mLevelLifeText;
+    Image* mBgLifeBarImg;
+    Image* mLifeBarImg;
+
     std::vector<std::pair<int, Text*>> mParticleTexts;
 };
 

@@ -49,6 +49,9 @@ void Manager::launchMain() {
     mData = {};
     mData["time"] = 0;
     mData["level"] = 1;
+    mData["levelMaxLife"] = 20;
+    mData["levelCurrentLife"] = 20;
+    mData["damage"] = 1;
     mData["particles"] = {};
 
     mParticles = 0;
@@ -69,5 +72,14 @@ void Manager::onClick(float x, float y) {
         mData["particles"].push_back(particle);
 
         mParticles = mParticles + 1;
+
+        mData["levelCurrentLife"] = (int)mData["levelCurrentLife"] - (int)mData["damage"];
+
+        if((int)mData["levelCurrentLife"] == 0){
+            mData["level"] = (int)mData["level"] + 1;
+            mData["levelMaxLife"] = 20;
+            mData["levelCurrentLife"] = 20;
+            mData["damage"] = 1;
+        }
     }
 }

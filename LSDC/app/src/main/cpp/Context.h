@@ -19,6 +19,7 @@ public:
     GLuint getBgLoadTexture();
     GLuint getBgMainTexture();
     GLuint getFontTexture();
+    GLuint getLifeBarTexture();
 private:
     int mWidth;
     int mHeight;

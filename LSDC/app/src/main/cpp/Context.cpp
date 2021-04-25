@@ -6,13 +6,14 @@ Context::Context(AAssetManager *assetManager, int width, int height) {
 
     mUiShader = new Shader(assetManager, "render/shader/ui/uiVS.txt", "render/shader/ui/uiFS.txt");
 
-    int nbTexture = 3;
+    int nbTexture = 4;
     mTextures = new GLuint[nbTexture] ();
     glGenTextures(nbTexture, mTextures);
 
     new Texture(assetManager, "bgLoad.png", 0, mTextures);
     new Texture(assetManager, "bgMain.png", 1, mTextures);
     new Texture(assetManager, "LadyS-font.png", 2, mTextures);
+    new Texture(assetManager, "lifeBar.png", 3, mTextures);
 }
 
 int Context::getWidth() {
@@ -37,4 +38,8 @@ GLuint Context::getBgMainTexture() {
 
 GLuint Context::getFontTexture() {
     return mTextures[2];
+}
+
+GLuint Context::getLifeBarTexture() {
+    return mTextures[3];
 }

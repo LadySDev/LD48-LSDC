@@ -34,20 +34,20 @@ Image::Image(Context *context, float width, float height, GLuint texture) {
     float pos2X = (2 * width / (float)mContext->getWidth()) - 1;
     float pos2Y = 1 - (2 * height / (float)mContext->getHeight());
     //float w = ((2 * width) / (float)context->getWidth()) - 1 - (-1.0f);
-    float w = abs(pos1X - pos2X);
+    //float w = abs(pos1X - pos2X);
     //float h = 1.0f - (-(((2 * height) / (float)context->getHeight()) - 1));
-    float h = abs(pos1Y - pos2Y);
+    //float h = abs(pos1Y - pos2Y);
 
-    mWidth = w;
-    mHeight = h;
+    mWidth = pos2X;
+    mHeight = pos2Y;
 
     mTexture = texture;
 
-    mVertices[2] = mVertices[0] + mWidth;
-    mVertices[4] = mVertices[0] + mWidth;
+    mVertices[2] = mVertices[0] + abs(mWidth - (-1.0));
+    mVertices[4] = mVertices[0] + abs(mWidth - (-1.0));
 
-    mVertices[5] = mVertices[1] - mHeight;
-    mVertices[7] = mVertices[1] - mHeight;
+    mVertices[5] = mVertices[1] - abs(1.0 - mHeight);
+    mVertices[7] = mVertices[1] - abs(1.0 - mHeight);
 
     mProgram = context->getUIShader()->getProgram();
     mVertexPosition = glGetAttribLocation(*mProgram, "vertexPosition");
@@ -62,32 +62,34 @@ void Image::setSize(float width, float height) {
     float pos2X = (2 * width / (float)mContext->getWidth()) - 1;
     float pos2Y = 1 - (2 * height / (float)mContext->getHeight());
 
-    float w = abs(pos1X - pos2X);
-    float h = abs(pos1Y - pos2Y);
+    //float w = abs(pos1X - pos2X);
+    //float h = abs(pos1Y - pos2Y);
 
-    mWidth = w;
-    mHeight = h;
+    mWidth = pos2X;
+    mHeight = pos2Y;
 
-    mVertices[2] = mVertices[0] + mWidth;
-    mVertices[4] = mVertices[0] + mWidth;
+    mVertices[2] = mVertices[0] + abs(mWidth - (-1.0));
+    mVertices[4] = mVertices[0] + abs(mWidth - (-1.0));
 
-    mVertices[5] = mVertices[1] - mHeight;
-    mVertices[7] = mVertices[1] - mHeight;
+    mVertices[5] = mVertices[1] - abs(1.0 - mHeight);
+    mVertices[7] = mVertices[1] - abs(1.0 - mHeight);
 }
 
 void Image::setPosition(float x, float y) {
-    mPosX = x;
-    mPosY = y;
+    mPosX = (2 * x / (float)mContext->getWidth()) - 1;
+    mPosY = 1 - (2 * y / (float)mContext->getHeight());
+    //mPosX = x;
+    //mPosY = y;
 
     mVertices[0] = mPosX;
-    mVertices[2] = mVertices[0] + mWidth;
-    mVertices[4] = mVertices[0] + mWidth;
+    mVertices[2] = mVertices[0] + abs(mWidth - (-1.0));
+    mVertices[4] = mVertices[0] + abs(mWidth - (-1.0));
     mVertices[6] = mPosX;
 
     mVertices[1] = mPosY;
     mVertices[3] = mPosY;
-    mVertices[5] = mVertices[1] - mHeight;
-    mVertices[7] = mVertices[1] - mHeight;
+    mVertices[5] = mVertices[1] - abs(1.0 - mHeight);
+    mVertices[7] = mVertices[1] - abs(1.0 - mHeight);
 }
 
 void Image::setColor(float r, float g, float b) {
@@ -137,4 +139,20 @@ void Image::render() {
     glDisableVertexAttribArray(0);
 
     glUseProgram(0);
+}
+
+float Image::getWidth() {
+    return (mWidth + 1) * mContext->getWidth() / 2.0f;
+}
+
+float Image::getHeight() {
+    return (-mHeight + 1) * mContext->getHeight() / 2.0f;
+}
+
+float Image::getPosX() {
+    return (mPosX + 1) * mContext->getWidth() / 2.0f;
+}
+
+float Image::getPosY() {
+    return (-mPosY + 1) * mContext->getHeight() / 2.0f;
 }

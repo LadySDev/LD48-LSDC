@@ -8,7 +8,13 @@ public:
     Image(Context* context, float width, float height, GLuint texture);
 
     void setSize(float width, float height);
+    float getWidth();
+    float getHeight();
+
     void setPosition(float x, float y);
+    float getPosX();
+    float getPosY();
+
     void setColor(float r, float g, float b);
     void setTextureCoord(float *textureCoord);
     void setTexture(GLuint texture);
