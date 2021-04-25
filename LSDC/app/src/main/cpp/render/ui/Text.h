@@ -20,6 +20,9 @@ public:
     float getPosX();
     float getPosY();
 
+    void setOffsetX(float offset);
+    void setOffsetY(float offset);
+
     float getWidthBounds();
     float getHeightBounds();
 private:
@@ -33,6 +36,9 @@ private:
     float mPosX;
     float mPosY;
 
+    float mOffsetX;
+    float mOffsetY;
+
     std::string mText;
     int mCharacterSize;
     int mCharacterSpacing;
@@ -41,6 +47,8 @@ private:
 
     Image getLetter(int row, int col);
     void addLetter(char letter);
+
+    void updateImages();
 };
 
 

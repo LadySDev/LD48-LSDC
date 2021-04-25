@@ -45,6 +45,8 @@ void MainView::update(nlohmann::json data) {
 
             Text* text = new Text(mContext, 250.0f, 250.0f, mContext->getFontTexture(), "PARTICULE");
             text->setPosition(posX, posY);
+            text->setOffsetX(text->getWidthBounds() / 2.0f);
+            text->setOffsetY(text->getHeightBounds() / 2.0f);
 
             mParticleTexts.push_back(std::pair<int, Text*>(index, text));
         }
