@@ -8,6 +8,8 @@
 
 #include "render/Texture.h"
 
+#include "utils/json.hpp"
+
 class Context {
 public:
     Context(AAssetManager* assetManager, int width, int height);
@@ -21,6 +23,9 @@ public:
     GLuint getFontTexture();
     GLuint getLifeBarTexture();
     GLuint getMinerTexture();
+
+    nlohmann::json mDescriptor;
+    nlohmann::json mDescriptor2;
 private:
     int mWidth;
     int mHeight;

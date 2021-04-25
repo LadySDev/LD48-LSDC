@@ -14,6 +14,10 @@ class Context;
 #include "utils/json.hpp"
 #include <chrono>
 
+#include <SLES/OpenSLES.h>
+#include <SLES/OpenSLES_Android.h>
+#include <SLES/OpenSLES_AndroidConfiguration.h>
+
 class Manager {
 public:
     Manager(Context* context);
@@ -22,6 +26,16 @@ public:
     void render();
 
     void launchMain();
+
+    bool startBGMEngine();
+    void stopBGMEngine();
+    bool startBGM();
+    void stopBGM();
+
+    bool startBGMEngine2();
+    void stopBGMEngine2();
+    bool startBGM2();
+    void stopBGM2();
 private:
     Context* mContext;
     IView* mCurrentView;
@@ -35,6 +49,22 @@ private:
     std::chrono::time_point<std::chrono::system_clock> mTimerNew;
 
     int mParticles;
+
+    SLObjectItf mEngineObj;
+    SLEngineItf mEngine;
+    SLObjectItf mOutputMixObj;
+    //music
+    SLObjectItf mBGMPlayerObj;
+    SLPlayItf mBGMPlayer;
+    SLSeekItf mBGMPlayerSeek;
+    //sound
+    SLObjectItf mEngineObj2;
+    SLEngineItf mEngine2;
+    SLObjectItf mOutputMixObj2;
+
+    SLObjectItf mBGMPlayerObj2;
+    SLPlayItf mBGMPlayer2;
+    SLSeekItf mBGMPlayerSeek2;
 };
 
 

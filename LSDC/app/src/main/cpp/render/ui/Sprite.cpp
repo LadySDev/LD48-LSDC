@@ -102,7 +102,7 @@ void Sprite::playAnimation(std::string name) {
     mCurrentAnimation = mAnimations[name];
 
     if(mCurrentAnimation != nullptr){
-        
+
         mIsAnimPlaying = true;
     }
 }

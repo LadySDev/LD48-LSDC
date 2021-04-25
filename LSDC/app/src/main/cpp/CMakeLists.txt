@@ -57,6 +57,7 @@ target_link_libraries( # Specifies the target library.
                         android
                         EGL
                         GLESv3
+                        OpenSLES
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )
